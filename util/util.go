@@ -9,7 +9,7 @@ import (
 func Read_input(filename string) ([]string, error) {
 	var lines []string
 
-	file, err := os.Open("inputs/" + filename)
+	file, err := os.Open(filename)
 	if err != nil {
 		return nil, err
 	}
