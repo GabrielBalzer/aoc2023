@@ -76,7 +76,7 @@ func solvePart2(lines []string) int {
 }
 
 func main() {
-	lines, err := util.Read_input("day1.txt")
+	lines, err := util.Read_input("inputs/day1.txt")
 	if err != nil {
 		panic(err)
 	}
