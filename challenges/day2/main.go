@@ -60,6 +60,41 @@ func solvePart1(lines []string) int {
 	return sum_ids
 }
 
+func solvePart2(lines []string) int {
+	sum_products := 0
+	for _, line := range lines {
+		fewest_colors := map[string]int{
+			"red":   0,
+			"green": 0,
+			"blue":  0,
+		}
+		game_data := strings.Split(line, ": ")[1]
+		sets := strings.Split(game_data, "; ")
+		for _, set := range sets {
+
+			colors := strings.Split(set, ", ")
+			for _, color := range colors {
+
+				color_value_string_part := strings.Split(color, " ")
+				color_value, err := strconv.Atoi(color_value_string_part[0])
+				if err != nil {
+					panic(err)
+				}
+				for color_name, color_minimal := range fewest_colors {
+					if strings.Contains(color, color_name) {
+						if color_minimal < color_value {
+							fewest_colors[color_name] = color_value
+						}
+					}
+				}
+			}
+		}
+		sum_products += fewest_colors["red"] * fewest_colors["green"] * fewest_colors["blue"]
+
+	}
+	return sum_products
+}
+
 func main() {
 	lines, err := util.Read_input("inputs/day2.txt")
 	if err != nil {
@@ -67,4 +102,6 @@ func main() {
 	}
 	part1_result := solvePart1(lines)
 	fmt.Printf("Answer for Part 1: %v\n", part1_result)
+	part2_result := solvePart2(lines)
+	fmt.Printf("Answer for Part 2: %v\n", part2_result)
 }
