@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	value_map = map[string]int{
+	valueMap = map[string]int{
 		"one":   1,
 		"two":   2,
 		"three": 3,
@@ -43,7 +43,7 @@ func extractNumberAndStringNumberFromString(line string) int {
 			numbers[i] = number
 		}
 	}
-	for key, value := range value_map {
+	for key, value := range valueMap {
 		re := regexp.MustCompile(key)
 		matches := re.FindAllStringIndex(line, -1)
 		if matches != nil {
@@ -80,9 +80,9 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	part1_result := solvePart1(lines)
-	fmt.Printf("Answer for Part 1: %v\n", part1_result)
+	part1Result := solvePart1(lines)
+	fmt.Printf("Answer for Part 1: %v\n", part1Result)
 
-	part2_result := solvePart2(lines)
-	fmt.Printf("Answer for Part 2: %v\n", part2_result)
+	part2Result := solvePart2(lines)
+	fmt.Printf("Answer for Part 2: %v\n", part2Result)
 }

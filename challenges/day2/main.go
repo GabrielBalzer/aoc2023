@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	possible_part1 = map[string]int{
+	possiblePart1 = map[string]int{
 		"red":   12,
 		"green": 13,
 		"blue":  14,
@@ -17,15 +17,15 @@ var (
 )
 
 func solvePart1(lines []string) int {
-	sum_ids := 0
+	sumIDs := 0
 
-	for line_number, line := range lines {
-		game_id := line_number + 1
-		game_data := strings.Split(line, ": ")[1]
-		sets := strings.Split(game_data, "; ")
-		game_possible := true
+	for lineNumber, line := range lines {
+		gameID := lineNumber + 1
+		gameData := strings.Split(line, ": ")[1]
+		sets := strings.Split(gameData, "; ")
+		gamePossible := true
 		for _, set := range sets {
-			set_possible := map[string]bool{
+			setPossible := map[string]bool{
 				"red":   true,
 				"green": true,
 				"blue":  true,
@@ -33,66 +33,66 @@ func solvePart1(lines []string) int {
 			colors := strings.Split(set, ", ")
 			for _, color := range colors {
 
-				color_value_string_part := strings.Split(color, " ")
-				color_value, err := strconv.Atoi(color_value_string_part[0])
+				colorValueStringPart := strings.Split(color, " ")
+				colorValue, err := strconv.Atoi(colorValueStringPart[0])
 				if err != nil {
 					panic(err)
 				}
-				for color_name, color_possible := range possible_part1 {
-					if strings.Contains(color, color_name) {
-						if !(color_value <= color_possible) {
-							set_possible[color_name] = false
+				for colorName, colorPossible := range possiblePart1 {
+					if strings.Contains(color, colorName) {
+						if !(colorValue <= colorPossible) {
+							setPossible[colorName] = false
 						}
 					}
 				}
 			}
-			for _, v := range set_possible {
+			for _, v := range setPossible {
 				if !v {
-					game_possible = false
+					gamePossible = false
 					break
 				}
 			}
 		}
-		if game_possible {
-			sum_ids += game_id
+		if gamePossible {
+			sumIDs += gameID
 		}
 	}
-	return sum_ids
+	return sumIDs
 }
 
 func solvePart2(lines []string) int {
-	sum_products := 0
+	sumProducts := 0
 	for _, line := range lines {
-		fewest_colors := map[string]int{
+		colorCounts := map[string]int{
 			"red":   0,
 			"green": 0,
 			"blue":  0,
 		}
-		game_data := strings.Split(line, ": ")[1]
-		sets := strings.Split(game_data, "; ")
+		gameData := strings.Split(line, ": ")[1]
+		sets := strings.Split(gameData, "; ")
 		for _, set := range sets {
 
 			colors := strings.Split(set, ", ")
 			for _, color := range colors {
 
-				color_value_string_part := strings.Split(color, " ")
-				color_value, err := strconv.Atoi(color_value_string_part[0])
+				colorValueStringPart := strings.Split(color, " ")
+				colorValue, err := strconv.Atoi(colorValueStringPart[0])
 				if err != nil {
 					panic(err)
 				}
-				for color_name, color_minimal := range fewest_colors {
-					if strings.Contains(color, color_name) {
-						if color_minimal < color_value {
-							fewest_colors[color_name] = color_value
+				for colorName, colorMinimal := range colorCounts {
+					if strings.Contains(color, colorName) {
+						if colorMinimal < colorValue {
+							colorCounts[colorName] = colorValue
 						}
 					}
 				}
 			}
 		}
-		sum_products += fewest_colors["red"] * fewest_colors["green"] * fewest_colors["blue"]
+		sumProducts += colorCounts["red"] * colorCounts["green"] * colorCounts["blue"]
 
 	}
-	return sum_products
+	return sumProducts
 }
 
 func main() {
@@ -100,8 +100,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	part1_result := solvePart1(lines)
-	fmt.Printf("Answer for Part 1: %v\n", part1_result)
-	part2_result := solvePart2(lines)
-	fmt.Printf("Answer for Part 2: %v\n", part2_result)
+	part1Result := solvePart1(lines)
+	fmt.Printf("Answer for Part 1: %v\n", part1Result)
+	part2Result := solvePart2(lines)
+	fmt.Printf("Answer for Part 2: %v\n", part2Result)
 }
